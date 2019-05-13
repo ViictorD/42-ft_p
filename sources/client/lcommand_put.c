@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lcommand_put.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/18 22:52:13 by kcosta            #+#    #+#             */
+/*   Updated: 2019/05/13 19:07:57 by vdarmaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "client.h"
+
+char	*get_filename(char *path)
+{
+	char	*filename;
+	char	*tmp;
+
+	tmp = ft_strrchr(path, '/');
+	filename = tmp ? ft_strdup(tmp + 1) : ft_strdup(path);
+	return (filename);
+}
+
+int		send_data(int socket, char *path, char *ptr, size_t size)
+{
+	char	*cmd;
+	char	*filename;
+	int		ready;
+
+	filename = get_filename(path);
+	cmd = ft_strjoin("put ", filename);
+	send(socket, cmd, ft_strlen(cmd), 0);
+	recv(socket, &ready, sizeof(int), 0);
+	if (send(socket, &size, sizeof(size_t), 0) == -1)
+	{
+		ft_strdel(&cmd);
+		ft_strdel(&filename);
+		return (receive_data(socket));
+	}
+	if (size)
+		send(socket, ptr, size, 0);
+	receive_data(socket);
+	ft_strdel(&cmd);
+	ft_strdel(&filename);
+	return (0);
+}
+
+int		lcommand_put(int socket, char **argv)
+{
+	int			fd;
+	struct stat	st_stat;
+	char		*ptr;
+
+	if (ft_tablen(argv) != 2)
+		return (printf("Usage: put <file>\n"));
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1 && errno == EACCES)
+		return (printf("Permission denied.\n"));
+	else if (fd == -1)
+		return (printf("File does not exists.\n"));
+	else if (fstat(fd, &st_stat) < 0)
+		return (printf("Permission denied.\n"));
+	else if (S_ISDIR(st_stat.st_mode))
+		return (printf("Usage: put <file>\n"));
+	ptr = ft_strnew(st_stat.st_size);
+	read(fd, ptr, st_stat.st_size);
+	close(fd);
+	send_data(socket, argv[1], ptr, st_stat.st_size);
+	ft_strdel(&ptr);
+	return (200);
+}
