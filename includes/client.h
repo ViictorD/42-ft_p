@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/09 11:47:39 by kcosta            #+#    #+#             */
-/*   Updated: 2019/05/13 19:11:30 by vdarmaya         ###   ########.fr       */
+/*   Created: 2019/05/14 18:50:16 by vdarmaya          #+#    #+#             */
+/*   Updated: 2019/05/22 17:52:21 by vdarmaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <sys/mman.h>
 
 # define MSG_DEFAULT "SUCCESS."
-# define MSG_200 "SUCCESS: Command okay."
+# define MSG_200 "SUCCESS: Command done."
 # define MSG_221 "SUCCESS: Service closing control connection."
 # define MSG_500 "ERROR: Syntax error, command unrecognized."
 # define MSG_501 "ERROR: Syntax error in parameters or arguments."

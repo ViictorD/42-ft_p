@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_utils.c                                     :+:      :+:    :+:   */
+/*   ft_readfile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/14 18:51:44 by vdarmaya          #+#    #+#             */
-/*   Updated: 2019/05/14 18:51:45 by vdarmaya         ###   ########.fr       */
+/*   Created: 2019/05/14 15:50:21 by vdarmaya          #+#    #+#             */
+/*   Updated: 2019/05/14 15:50:57 by vdarmaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "string.h"
 
-int			send_data(int client, const void *data, size_t size, int reply)
+size_t	ft_readfile(const int fd, char **buf)
 {
+	char	buff[1024];
+	char	*dup;
+	char	*tmp;
 	int		ret;
+	size_t	len;
 
-	send(client, &reply, sizeof(int), 0);
-	ret = send(client, &size, sizeof(size_t), 0);
-	if (ret == -1)
-		printf("Failed to deliver data size.\n");
-	if (!size)
-		return (0);
-	ret = send(client, data, size, 0);
-	if (ret == -1)
-		printf("Failed to deliver data.\n");
-	return (reply);
+	dup = ft_strnew(0);
+	len = 0;
+	while ((ret = read(fd, buff, 1023)) > 0)
+	{
+		len += ret;
+		buff[ret] = 0;
+		tmp = dup;
+		dup = ft_strjoin(dup, buff);
+		ft_strdel(&tmp);
+	}
+	*buf = ft_strdup(dup);
+	ft_strdel(&dup);
+	(*buf)[len - 1] = 0;
+	return (len - 1);
 }

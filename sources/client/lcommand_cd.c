@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/15 12:31:37 by kcosta            #+#    #+#             */
-/*   Updated: 2019/05/13 19:07:54 by vdarmaya         ###   ########.fr       */
+/*   Created: 2019/05/14 18:50:52 by vdarmaya          #+#    #+#             */
+/*   Updated: 2019/05/14 18:50:53 by vdarmaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int		lcd_manage(char **path, char **pwd, char **old)
 	index = 0;
 	if (!ft_strcmp(path[index], "-"))
 	{
-		ft_printf("%s\n", *old);
+		ft_putendl(*old);
 		chdir(*old);
 		ft_strswp(pwd, old);
 		return (0);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/11 19:54:47 by kcosta            #+#    #+#             */
-/*   Updated: 2019/05/13 19:07:11 by vdarmaya         ###   ########.fr       */
+/*   Created: 2019/05/14 18:51:40 by vdarmaya          #+#    #+#             */
+/*   Updated: 2019/05/17 17:15:31 by vdarmaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cmd_hash g_cmd_hash[12] =
 	{ 2, "cd", NULL, &command_cd },
 	{ 3, "get", NULL, &command_get },
 	{ 3, "put", NULL, &command_put },
-	{ 3, "del", "/bin/rm", &command_del },
+	{ 2, "rm", "/bin/rm", &command_del },
 	{ 3, "pwd", "/bin/pwd", &command_pwd },
 	{ 4, "quit", NULL, &command_quit },
 	{ 5, "mkdir", "/bin/mkdir", &exec_command },

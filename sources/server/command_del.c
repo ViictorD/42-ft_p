@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarmaya <vdarmaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 15:56:31 by kcosta            #+#    #+#             */
-/*   Updated: 2019/05/13 19:06:44 by vdarmaya         ###   ########.fr       */
+/*   Created: 2019/05/14 18:51:12 by vdarmaya          #+#    #+#             */
+/*   Updated: 2019/05/17 17:16:49 by vdarmaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			command_del(int client, char *cmd, char **argv)
 	size_t		data_length;
 
 	if (ft_tablen(argv) > 2 || *argv[1] == '-')
-		return (send_err_msg(client, "Usage: del <file>"));
+		return (send_err_msg(client, "Usage: rm <file>"));
 	ft_strdel(argv);
 	argv[0] = ft_strdup(cmd);
 	pid = fork();
